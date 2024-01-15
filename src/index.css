@@ -1,0 +1,41 @@
+/* src/index.css */
+
+body {
+    background-color: #36393f; /* Discord's dark background color */
+    font-size: 16px; /* Set a base font size */
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    background-color: #202225; /* Discord's form background color */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 18px; /* Increase the form's font size */
+    width: 80%; /* Adjust the width as needed */
+}
+
+.form-label {
+    color: #b9bbbe; /* Discord's label text color */
+}
+
+.form-control {
+    background-color: #36393f; /* Discord's input background color */
+    color: #b9bbbe; /* Discord's input text color */
+    border: 1px solid #7289da; /* Discord's input border color */
+}
+
+.form-control:focus {
+    border-color: #7289da; /* Discord's focused input border color */
+    box-shadow: 0 0 0 0.2rem rgba(114, 137, 218, 0.5); /* Discord's focused input box shadow */
+}
+
+.btn-primary {
+    font-size: 18px; /* Increase button font size */
+}
