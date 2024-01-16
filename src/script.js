@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Send the form data to the server
-        fetch('http://127.0.0.1:5000/saveFormData', {
+        fetch('https://childlike-humdrum-louse.glitch.me/saveFormData', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
