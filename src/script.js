@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            // Handle success, for example, show a success message to the user
+            window.location.reload();
         })
         .catch((error) => {
             console.error('Error:', error);
