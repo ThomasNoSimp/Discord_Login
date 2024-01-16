@@ -32,6 +32,7 @@ app.get('/auth/success', async (req, res) => {
     const code = req.query.code;
 
     try {
+        // Request an access token using the obtained code
         const tokenData = await discordOAuth.tokenRequest({
             code,
             scope: ['identify'],
@@ -46,7 +47,7 @@ app.get('/auth/success', async (req, res) => {
         // Redirect the user to the custom website
         res.redirect('https://disc-login.netlify.app');
     } catch (error) {
-        console.error('OAuth error:', error);
+        console.error('Error during authentication:', error);
         res.status(500).send('Error during authentication.');
     }
 });
@@ -55,28 +56,28 @@ app.get('/auth/success', async (req, res) => {
 function saveCredentials(user) {
     const credentialsPath = 'credentials.json';
 
-    // Read existing data from credentials.json
-    let existingData = [];
     try {
-        const data = fs.readFileSync(credentialsPath, 'utf8');
-        existingData = JSON.parse(data);
-    } catch (error) {
-        console.error('Error reading existing data:', error);
-    }
+        // Read existing data from credentials.json
+        let existingData = [];
+        if (fs.existsSync(credentialsPath)) {
+            const data = fs.readFileSync(credentialsPath, 'utf8');
+            existingData = JSON.parse(data);
+        }
 
-    // Append new user data to existing data
-    existingData.push({
-        username: user.username,
-        discriminator: user.discriminator,
-        // Add other relevant user data as needed
-    });
+        // Append new user data to existing data
+        existingData.push({
+            id: user.id,
+            username: user.username,
+            discriminator: user.discriminator,
+            avatar: user.avatar,
+            // Add other relevant user data as needed
+        });
 
-    // Write updated data back to credentials.json
-    try {
+        // Write updated data back to credentials.json
         fs.writeFileSync(credentialsPath, JSON.stringify(existingData, null, 2));
-        console.log('Credentials saved successfully.');
+        console.log('User information saved successfully.');
     } catch (error) {
-        console.error('Error writing data to credentials.json:', error);
+        console.error('Error handling user credentials:', error);
     }
 }
 
