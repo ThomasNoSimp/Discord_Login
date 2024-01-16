@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Send the form data to the server
-        fetch('https://childlike-humdrum-louse.glitch.me/saveFormData', {
+        fetch('https://sunny-cheddar-pecorino.glitch.me/saveFormData', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
