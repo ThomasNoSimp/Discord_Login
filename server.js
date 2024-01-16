@@ -14,7 +14,7 @@ app.use(cors());
 const discordOAuth = new DiscordOAuth2({
     clientId: 'YOUR_DISCORD_CLIENT_ID',
     clientSecret: process.env.DiscordClientSecret,
-    redirectUri: 'http://localhost:5000/auth/success', // Change to your custom success URL
+    redirectUri: 'https://disc-login.netlify.app',
 });
 
 app.get('/', (req, res) => {
@@ -44,7 +44,7 @@ app.get('/auth/success', async (req, res) => {
         saveCredentials(user);
 
         // Redirect the user to the custom website
-        res.redirect('https://');
+        res.redirect('https://disc-login.netlify.app');
     } catch (error) {
         console.error('OAuth error:', error);
         res.status(500).send('Error during authentication.');
