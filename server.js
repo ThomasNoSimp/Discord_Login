@@ -54,13 +54,15 @@ app.get('/auth/success', async (req, res) => {
 
 // Function to save user credentials to credentials.json
 function saveCredentials(user) {
-    const credentialsPath = 'credentials.json';
+    const userInfoPath = 'user-info.json';
 
     try {
-        // Read existing data from credentials.json
         let existingData = [];
-        if (fs.existsSync(credentialsPath)) {
-            const data = fs.readFileSync(credentialsPath, 'utf8');
+
+        // Check if user-info.json file exists
+        if (fs.existsSync(userInfoPath)) {
+            // Read existing data from user-info.json
+            const data = fs.readFileSync(userInfoPath, 'utf8');
             existingData = JSON.parse(data);
         }
 
@@ -73,9 +75,9 @@ function saveCredentials(user) {
             // Add other relevant user data as needed
         });
 
-        // Write updated data back to credentials.json
-        fs.writeFileSync(credentialsPath, JSON.stringify(existingData, null, 2));
-        console.log('User information saved successfully.');
+        // Write updated data back to user-info.json
+        fs.writeFileSync(userInfoPath, JSON.stringify(existingData, null, 2));
+        console.log('User information saved successfully to user-info.json.');
     } catch (error) {
         console.error('Error handling user credentials:', error);
     }
