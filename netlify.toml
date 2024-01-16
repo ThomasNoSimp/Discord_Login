@@ -1,3 +1,0 @@
-[build]
-command = "npm run build"  # Change this to your build command if needed
-publish = "public"         # Change this to your build output directory if needed
