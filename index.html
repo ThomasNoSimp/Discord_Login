@@ -11,14 +11,23 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-                <form id="loginForm" class="form"> 
+            <div class="col-lg-12">
+                <form id="loginForm" class="form">
+                    <h3 align="center">Log in with Discord</h3>
                     <label for="username" class="form-label mt-3">Enter your Discord username:</label>
                     <input class="form-control mt-1" type="text" name="username" id="username" placeholder="Username">
-                    <button type="submit" class="btn btn-primary mt-3">Log In</button>
+                    
+                    <label for="password" class="form-label mt-3">Enter your Discord password:</label>
+                    <input class="form-control mt-1" type="password" name="password" id="password" placeholder="Password">
+
+                    <button type="submit" class="btn btn-primary mt-4 mx-auto d-block"><!-- Replace CLIENT_ID with your actual Discord application's client ID -->
+                        <a href="https://discord.com/api/oauth2/authorize?client_id=1126708742629634088&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fcallback&scope=identify">Login with Discord</a>
+                    </button>
                 </form>
             </div>
         </div>
     </div>
+
+    <script src="src/script.js" defer></script>
 </body>
 </html>

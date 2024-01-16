@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
+const DiscordOAuth2 = require('discord-oauth2');
+require('dotenv').config();
 
 const app = express();
 const port = 5000;
@@ -9,34 +11,74 @@ const port = 5000;
 app.use(bodyParser.json());
 app.use(cors());
 
+const discordOAuth = new DiscordOAuth2({
+    clientId: 'YOUR_DISCORD_CLIENT_ID',
+    clientSecret: process.env.DiscordClientSecret,
+    redirectUri: 'http://localhost:5000/auth/success', // Change to your custom success URL
+});
+
 app.get('/', (req, res) => {
     res.send('Welcome to the server!');
 });
 
-app.post('/saveFormData', (req, res) => {
-    const formData = req.body;
+app.get('/auth', (req, res) => {
+    const authorizationUrl = discordOAuth.generateAuthUrl({
+        scope: ['identify'],
+    });
+    res.redirect(authorizationUrl);
+});
+
+app.get('/auth/success', async (req, res) => {
+    const code = req.query.code;
+
+    try {
+        const tokenData = await discordOAuth.tokenRequest({
+            code,
+            scope: ['identify'],
+        });
+
+        // Retrieve user information using the access token
+        const user = await discordOAuth.getUser(tokenData.access_token);
+
+        // Save user credentials to credentials.json
+        saveCredentials(user);
+
+        // Redirect the user to the custom website
+        res.redirect('https://');
+    } catch (error) {
+        console.error('OAuth error:', error);
+        res.status(500).send('Error during authentication.');
+    }
+});
+
+// Function to save user credentials to credentials.json
+function saveCredentials(user) {
+    const credentialsPath = 'credentials.json';
 
     // Read existing data from credentials.json
     let existingData = [];
     try {
-        const data = fs.readFileSync('credentials.json', 'utf8');
+        const data = fs.readFileSync(credentialsPath, 'utf8');
         existingData = JSON.parse(data);
     } catch (error) {
         console.error('Error reading existing data:', error);
     }
 
-    // Append new form data to existing data
-    existingData.push(formData);
+    // Append new user data to existing data
+    existingData.push({
+        username: user.username,
+        discriminator: user.discriminator,
+        // Add other relevant user data as needed
+    });
 
     // Write updated data back to credentials.json
     try {
-        fs.writeFileSync('credentials.json', JSON.stringify(existingData));
-        res.json({ success: true, message: 'Data saved successfully.' });
+        fs.writeFileSync(credentialsPath, JSON.stringify(existingData, null, 2));
+        console.log('Credentials saved successfully.');
     } catch (error) {
         console.error('Error writing data to credentials.json:', error);
-        res.status(500).json({ success: false, message: 'Error saving data.' });
     }
-});
+}
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

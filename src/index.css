@@ -18,7 +18,9 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-size: 18px; /* Increase the form's font size */
-    width: 80%; /* Adjust the width as needed */
+    width: 1000px;
+    margin: 0 auto; /* Center the form horizontally */
+    height:50vh;
 }
 
 .form-label {
@@ -29,6 +31,7 @@ body {
     background-color: #36393f; /* Discord's input background color */
     color: #b9bbbe; /* Discord's input text color */
     border: 1px solid #7289da; /* Discord's input border color */
+    height: 40px; /* Adjust the height of the input box */
 }
 
 .form-control:focus {
@@ -38,4 +41,16 @@ body {
 
 .btn-primary {
     font-size: 18px; /* Increase button font size */
+    background-color: #7289da; /* Discord's primary button color */
+    border: 1px solid #7289da; /* Discord's primary button border color */
+}
+
+.btn-primary:hover {
+    background-color: #677bc4; /* Discord's primary button hover color */
+    border: 1px solid #677bc4; /* Discord's primary button hover border color */
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+h3 {
+    color:#b9bbbe;
 }
