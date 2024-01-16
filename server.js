@@ -5,6 +5,7 @@ const fs = require('fs').promises;
 
 const app = express();
 const port = 5000;
+const ipAddress = '0.0.0.0';
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -43,7 +44,7 @@ app.post('/saveFormData', async (req, res) => {
     }
 });
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, ipAddress, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
 
