@@ -52,7 +52,7 @@ app.get('/auth/success', async (req, res) => {
     }
 });
 
-// Function to save user credentials to credentials.json
+// Function to save user credentials to user-info.json
 function saveCredentials(user) {
     const userInfoPath = 'user-info.json';
 
@@ -77,11 +77,12 @@ function saveCredentials(user) {
 
         // Write updated data back to user-info.json
         fs.writeFileSync(userInfoPath, JSON.stringify(existingData, null, 2));
-        console.log('User information saved successfully to user-info.json.');
+        console.log('User information saved successfully to user-info.json:', user);
     } catch (error) {
         console.error('Error handling user credentials:', error);
     }
 }
+
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
